@@ -35,7 +35,7 @@
 #if  defined(_WIN64)
 #include <cfgmgr32.h>
 #else
-#include <ddk/cfgmgr32.h>
+#include <cfgmgr32.h>
 #endif
 #else
 #include <cfgmgr32.h>
