@@ -418,6 +418,8 @@ extern "C"
     int usb_cancel_async(void *context);
     int usb_free_async(void **context);
 
+#define LIBUSB_HAS_DEINIT 1
+    void usb_deinit(void);
 
 #ifdef __cplusplus
 }

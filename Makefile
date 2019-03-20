@@ -125,7 +125,7 @@ LIBWDI_DLL_LDFLAGS = -s -shared \
 DRIVER_LDFLAGS = -s -shared -Wl,--entry,_DriverEntry@8 \
 	-nostartfiles -nostdlib -L. -lusbd -lntoskrnl -lhal
 
-DLL_SOURCES = usb.2.o error.2.o descriptors.2.o windows.2.o install.2.o registry.2.o resource.2.o
+DLL_SOURCES = usb.2.o error.2.o descriptors.2.o install.2.o registry.2.o resource.2.o
 
 
 .PHONY: all
@@ -135,10 +135,10 @@ all: dll filter test testwin
 dll: DLL_CFLAGS = $(CFLAGS) -DLOG_APPNAME=\"$(DLL_TARGET)-dll\" -DTARGETTYPE=DYNLINK
 dll: $(DLL_TARGET).dll $(LIB_TARGET)-static.a
 
-$(LIB_TARGET)-static.a: $(DLL_SOURCES)
+$(LIB_TARGET)-static.a: $(DLL_SOURCES) windows_static.2.o
 	$(AR) rcs $@ $^
 
-$(DLL_TARGET).dll: $(DLL_SOURCES)
+$(DLL_TARGET).dll: $(DLL_SOURCES) windows.2.o
 	$(CC) $(DLL_CFLAGS) -o $@ -I./src  $^ $(DLL_TARGET).def $(DLL_LDFLAGS)
 
 %.2.o: %.c libusb_driver.h driver_api.h error.h

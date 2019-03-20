@@ -82,6 +82,16 @@ static void _usb_free_bus_list(struct usb_bus *bus);
 static void _usb_free_dev_list(struct usb_device *dev);
 static void _usb_deinit(void);
 
+#ifdef LIBUSB_STATIC
+void usb_deinit(void)
+{
+    _usb_deinit();
+}
+#else
+void usb_deinit(void)
+{
+}
+
 /* DLL main entry point */
 BOOL WINAPI DllMain(HANDLE module, DWORD reason, LPVOID reserved)
 {
@@ -101,6 +111,7 @@ BOOL WINAPI DllMain(HANDLE module, DWORD reason, LPVOID reserved)
     }
     return TRUE;
 }
+#endif
 
 
 static int usb_get_configuration(usb_dev_handle *dev, bool_t cached)
